@@ -4,3 +4,5 @@ librosa
 joblib
 pydub
 psycopg2
+Django
+djangorestframework

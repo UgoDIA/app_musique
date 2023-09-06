@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Musique</title>
+    <link rel="stylesheet" href=" {% static "css/bootstrap.min.css" %}">
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/jquery3.7.min.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/jquery.dataTables.min.css" %}">
+    <script type="text/javascript" charset="utf8" src="{% static "js/jquery.dataTables.min.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-title">
+                <h1>App Musique</h1>
+            </div>
+            {% comment %} <button class="btn btn-icon"><i class="bi bi-person-fill-add"></i></button> {% endcomment %}
+        </div>
+    </nav>
+
+    <div class="mx-auto" style="margin-top: 30px;width:1000px;">
+
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titreModal"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <h1>Identification de genres musicaux</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+    </form>
+        {% if form.instance.audio_url %}
+    <h2>Titre: {{form.instance.title}}</h2>
+    <audio controls>
+        <source src="{{ form.instance.audio_url }}" type="audio/mpeg">
+ 
+    </audio>
+    {% endif %}
+        <script>
+        document.querySelector('input[type="file"]').addEventListener('change', function() {
+            this.closest('form').submit();
+        });
+    </script>
+</body>
+
+</html>
